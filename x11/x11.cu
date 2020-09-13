@@ -176,6 +176,11 @@ extern "C" int scanhash_x11(int thr_id, struct work* work, uint32_t max_nonce, u
 			uint32_t _ALIGN(64) vhash[8];
 			be32enc(&endiandata[19], work->nonces[0]);
 			x11hash(vhash, endiandata);
+			gpulog(LOG_WARNING, thr_id, "%d", vhash);
+			gpulog(LOG_WARNING, thr_id, "%d", Htarg);
+			gpulog(LOG_WARNING, thr_id, "%d", ptarget);
+			gpulog(LOG_WARNING, thr_id, "%d", vhash[7] <= Htarg);
+			gpulog(LOG_WARNING, thr_id, "%d", fulltest(vhash, ptarget));
 
 			if (vhash[7] <= Htarg && fulltest(vhash, ptarget)) {
 				work->valid_nonces = 1;
